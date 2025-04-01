@@ -14,16 +14,16 @@ $navbar-hl: $cream; //navbar highlight on hover
 $body-bg: $light-pink; //page background
 
 #quarto-content {
-    max-width: 100% !important; 
+    max-width: 100% !important;
     margin: 0 auto;
     padding: 100px;
     max-block-size: 100%;
 }
 
 .about-contents {
-    max-width: 150% !important; 
-    margin: 0 auto !important; 
-    display: flex !important; 
+    max-width: 150% !important;
+    margin: 0 auto !important;
+    display: flex !important;
     flex-direction: row !important;
     max-block-size: 150% !important;
 }
@@ -42,37 +42,40 @@ body {
 /* Default sticky TOC for all pages */
 #quarto-margin-sidebar {
     position: sticky;
-    padding-left: 100px !important; 
-    top: 20px; /* Adjust as needed */
+    padding-left: 100px !important;
+    top: 20px;
+    /* Adjust as needed */
 }
 
-.sidebar nav[role=doc-toc] > h2#toc-title {
+.sidebar nav[role=doc-toc]>h2#toc-title {
     font-size: 18px !important;
     font-weight: bold !important;
     border-bottom: none !important;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     text-transform: none !important;
     letter-spacing: 0px !important;
 }
 
 h1 {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 700 !important; 
+    font-weight: 700 !important;
     font-size: 40px !important;
     color: $darkest-rose !important;
 }
 
 h2 {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 550 !important; 
+    font-weight: 550 !important;
     font-size: 30px !important;
     color: $dark-rose !important;
     margin-bottom: 2px !important;
     border-bottom: 1px solid !important;
     border-bottom-color: rgba(0, 0, 0, 0.05) !important;
-    padding-bottom: .5rem !important; 
+    padding-bottom: .5rem !important;
 }
 
 
@@ -83,7 +86,8 @@ h3 {
     color: #9D9D9D !important;
     margin-bottom: 0px !important;
     margin-top: .5rem !important;
-    padding-bottom: 0px; /* Optional */
+    padding-bottom: 0px;
+    /* Optional */
 }
 
 h4 {
@@ -98,9 +102,9 @@ h4 {
 
 
 h2 a {
-    color: inherit; 
-    font-weight: inherit; 
-    text-decoration: none; 
+    color: inherit;
+    font-weight: inherit;
+    text-decoration: none;
 }
 
 h2 a:hover {
@@ -113,25 +117,25 @@ p {
 }
 
 .navbar {
-    background-color: $navbar-bg; 
-    font-family: 'Oswald', sans-serif; 
-    font-weight: 300; 
-    border-bottom: 2px solid $darkest-rose; 
-    display: flex; 
+    background-color: $navbar-bg;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    border-bottom: 2px solid $darkest-rose;
+    display: flex;
     padding: 5px 10px !important;
 }
 
 .navbar-title {
-    font-weight: 400; 
+    font-weight: 400;
 }
 
 .navbar-nav .nav-link {
-    color: $navbar-fg; 
-    margin: 0; 
-    transition: color 0.3s ease; 
-    text-decoration: none; 
-    font-size: 1rem; 
-    font-weight: 400; 
+    color: $navbar-fg;
+    margin: 0;
+    transition: color 0.3s ease;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 400;
 }
 
 img {
@@ -146,7 +150,7 @@ header.quarto-title-block .quarto-title h1.title {
     color: $darkest-rose !important;
     font-family: 'Oswald', sans-serif;
     text-align: center;
-    margin-top: 20px; 
+    margin-top: 20px;
     font-size: 2.0rem;
 }
 
@@ -176,27 +180,27 @@ code {
 }
 
 html {
-    zoom: 90%; 
+    zoom: 90%;
 }
 
 /* General styles for dropdown items */
 .dropdown-menu .dropdown-item {
-    background-color: transparent; 
-    color: $darkest-rose; 
+    background-color: transparent;
+    color: $darkest-rose;
     text-decoration: none;
 }
 
 
 /* Styles for active (clicked) dropdown items */
 .dropdown-menu .dropdown-item:active {
-    background-color: $dark-rose; 
-    color: $darkest-rose; 
+    background-color: $dark-rose;
+    color: $darkest-rose;
     text-decoration: none;
 }
 
 /* Styles for hover state */
 .dropdown-menu .dropdown-item:hover {
-    background-color: $light-pink; 
-    color: $dark-rose; 
+    background-color: $light-pink;
+    color: $dark-rose;
     text-decoration: none;
 }

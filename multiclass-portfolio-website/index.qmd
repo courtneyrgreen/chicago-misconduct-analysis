@@ -17,6 +17,7 @@ about:
         - icon: envelope-at
           text: Email
           href: mailto:cgreen@georgetown.edu
+
 toc: true
 output: 
   html: 

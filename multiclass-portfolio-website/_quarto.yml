@@ -30,6 +30,9 @@ website:
         href: images/resume.pdf
         target: _blank
 
+      - icon: globe
+        href: https://native-land.ca/
+
 format:
   html:
     theme: 
@@ -37,6 +40,3 @@ format:
       - custom.scss
     toc: true
     page-layout: full 
-
-
-
