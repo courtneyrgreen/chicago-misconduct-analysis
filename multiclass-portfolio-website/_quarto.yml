@@ -12,7 +12,7 @@ website:
   title: "Portfolio"
   favicon: "images/gu-logo.png"
   navbar:
-    right:
+    left:
       - href: index.qmd
         text: Home
 
@@ -22,7 +22,8 @@ website:
             href: projects/dsan-5000/_site/index.html
           - text: "DSAN-5100: Probabilistic Modeling & Statistical Computing"
             href: projects/dsan-5100/_site/index.html
-
+          - text: "DSAN Second-Year Scholarship"
+            href: https://dsan-viz2025.github.io/ 
       - text: "Experience"
         href: experience.qmd
 
@@ -33,6 +34,11 @@ website:
       - icon: globe
         href: https://native-land.ca/
 
+    right:
+      - icon: github
+        href: "https://github.com/courtneyrgreen/dsan5000_final_project"
+      - text: "Back to Portfolio"
+        href: "https://crg123.georgetown.domains/"
 format:
   html:
     theme: 

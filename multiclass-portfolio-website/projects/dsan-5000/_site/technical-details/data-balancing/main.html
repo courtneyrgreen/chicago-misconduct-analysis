@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.54">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>DSAN-5000: Project - Counterfactual Data Balancing</title>
+<title>Counterfactual Data Balancing – DSAN-5000: Project</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -140,7 +140,7 @@ div.csl-indent {
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -154,7 +154,7 @@ div.csl-indent {
 <span class="menu-text">Report</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-technical-details" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-technical-details" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Technical details</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-technical-details">    
@@ -213,7 +213,7 @@ div.csl-indent {
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -276,8 +276,8 @@ div.csl-indent {
 <p>In this project, I set out to create a balanced dataset that would support supervised learning models for predicting the factors linked to exonerations. At the heart of this process is <strong>counterfactual balancing</strong>: building a dataset that includes exonerated individuals alongside a comparable group of non-exonerated individuals, drawn to reflect the broader incarcerated population in Illinois. This balance is critical—it allows the model to make fair and meaningful comparisons when identifying patterns and predictors of exoneration outcomes.</p>
 <section id="why-use-counterfactual-data" class="level2">
 <h2 class="anchored" data-anchor-id="why-use-counterfactual-data">Why Use Counterfactual Data?</h2>
-<p>Counterfactual data is a necessity when access to complete prison population records is unavailable. Since I don’t have access to a full dataset of all incarcerated individuals in Illinois and their exoneration statuses (e.g., ‘exonerated’, ‘not exonerate’), I relied on counterfactuals to bridge the gap and construct a balanced dataset.</p>
-<p>The idea behind counterfactuals is simple: they allow us to ask <em>“what if?”</em> questions. For example: <em>What if an exonerated person had not been exonerated? Would their characteristics look similar to non-exonerated individuals?</em> Counterfactual data helps isolate these comparisons by holding everything else constant except the hypothetical condition—in this case, exoneration.</p>
+<p>Counterfactual data is a necessity when access to complete prison population records is unavailable. Since I don’t have access to a full dataset of all incarcerated individuals in Illinois and their exoneration statuses (e.g., <code>exonerated</code>, <code>not exonerated</code>), I relied on counterfactuals to bridge the gap and construct a balanced dataset.</p>
+<p>Counterfactuals allow us to ask <em>“what if?”</em> questions.<em>What if an exonerated person had not been exonerated? Would their characteristics look similar to non-exonerated individuals?</em> Moreover, counterfactual data helps isolate these comparisons by holding everything else constant except the hypothetical condition—in this case, exoneration.</p>
 <p>As explained in this <a href="https://bayes.cs.ucla.edu/PRIMER/primer-ch4.pdf">primer on counterfactuals</a>, a counterfactual statement operates on an unrealized “if” condition. The “if” portion, also known as the antecedent, frames the comparison: exonerated individuals versus those who weren’t. This approach is powerful because it reduces bias and ensures that the model is trained on data that is reliable, balanced, and representative.<span class="citation" data-cites="pearl2016counterfactuals"><sup><a href="#ref-pearl2016counterfactuals" role="doc-biblioref">1</a></sup></span></p>
 <section id="acknowledgments" class="level3">
 <h3 class="anchored" data-anchor-id="acknowledgments">Acknowledgments</h3>
@@ -288,15 +288,18 @@ div.csl-indent {
 <section id="narrowing-to-incarcerated-population" class="level1">
 <h1>Narrowing to Incarcerated Population</h1>
 <p>To focus on the incarcerated population in Illinois, the dataset was filtered to include only relevant columns that captured key demographic details, such as total incarcerated populations broken down by race—White, Black, and Latino. This step ensured that the precise subset of data needed for balancing was used while also laying the groundwork for simulating representative draws from the Illinois incarcerated population.</p>
-<div id="cell-3" class="cell" data-execution_count="59">
+<div id="cell-3" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tqdm <span class="im">import</span> tqdm <span class="co"># Adds progress bars to loops and other iterable processes for better visualization.</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>tqdm.pandas() <span class="co"># Allows progress bars to appear during DataFrame operations.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tqdm <span class="im">import</span> (</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    tqdm,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>)  <span class="co"># Adds progress bars to loops and other iterable processes for better visualization.</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>tqdm.pandas()  <span class="co"># Allows progress bars to appear during DataFrame operations.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-4" class="cell" data-execution_count="60">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>il_df <span class="op">=</span> pd.read_csv(<span class="st">'../../data/processed-data/representation_by_county.csv'</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>il_df <span class="op">=</span> il_df[il_df[<span class="st">'state'</span>] <span class="op">==</span> <span class="st">"Illinois"</span>].copy()</span>
+<div id="cell-4" class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>il_df <span class="op">=</span> pd.read_csv(<span class="st">"../../data/processed-data/representation_by_county.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>il_df <span class="op">=</span> il_df[il_df[<span class="st">"state"</span>] <span class="op">==</span> <span class="st">"Illinois"</span>].copy()</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>il_df.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="60">
 <div>
@@ -393,14 +396,14 @@ div.csl-indent {
 </div>
 </div>
 <p>Columns are renamed to streamline the analysis, removing unnecessary verbosity while retaining clarity.</p>
-<div id="cell-6" class="cell" data-execution_count="61">
+<div id="cell-6" class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rename_map <span class="op">=</span> {</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'county'</span>: <span class="st">'county'</span>,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'state'</span>: <span class="st">'state'</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'incarcerated_population'</span>: <span class="st">'Total'</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'incarcerated_white_population'</span>: <span class="st">'White'</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'incarcerated_black_population'</span>: <span class="st">'Black'</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'incarcerated_latino_population'</span>: <span class="st">'Latino'</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"county"</span>: <span class="st">"county"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"state"</span>: <span class="st">"state"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"incarcerated_population"</span>: <span class="st">"Total"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"incarcerated_white_population"</span>: <span class="st">"White"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"incarcerated_black_population"</span>: <span class="st">"Black"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"incarcerated_latino_population"</span>: <span class="st">"Latino"</span>,</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only the cols in the rename_map</span></span>
@@ -480,13 +483,13 @@ div.csl-indent {
 </div>
 <p>To align the data with the exoneration registry, a small adjustment was made to clean up the county names. The original dataset listed counties with the trailing word “County” (e.g., “Cook County”), but the registry uses simplified names (like “Cook”), ensuring consistency across datasets.</p>
 <p>A <strong><code>state_prop</code></strong> column was then added to represent the proportion of all Illinois inmates coming from each county. This was calculated by dividing each county’s total incarcerated population (<code>Total</code>) by the sum of the total population across all counties. Sorting the values in descending order highlighted the counties with the largest share of the state’s incarcerated population.</p>
-<div id="cell-8" class="cell" data-execution_count="62">
+<div id="cell-8" class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Since the Exoneree project uses just the county name (like "Cook"), we'll remove the trailing " County" (so, e.g., "Cook County" will turn into just "Cook"):</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>il_df[<span class="st">'county'</span>] <span class="op">=</span> il_df[<span class="st">'county'</span>].<span class="bu">str</span>.replace(<span class="st">" county"</span>,<span class="st">""</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>il_df[<span class="st">"county"</span>] <span class="op">=</span> il_df[<span class="st">"county"</span>].<span class="bu">str</span>.replace(<span class="st">" county"</span>, <span class="st">""</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute a state_prop column representing the % of all Illinois inmates contained in each county:</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>il_df[<span class="st">'state_prop'</span>] <span class="op">=</span> il_df[<span class="st">'Total'</span>] <span class="op">/</span> il_df[<span class="st">'Total'</span>].<span class="bu">sum</span>()</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>il_df.sort_values(by<span class="op">=</span><span class="st">'state_prop'</span>, ascending<span class="op">=</span><span class="va">False</span>).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>il_df[<span class="st">"state_prop"</span>] <span class="op">=</span> il_df[<span class="st">"Total"</span>] <span class="op">/</span> il_df[<span class="st">"Total"</span>].<span class="bu">sum</span>()</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>il_df.sort_values(by<span class="op">=</span><span class="st">"state_prop"</span>, ascending<span class="op">=</span><span class="va">False</span>).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="62">
 <div>
 
@@ -562,11 +565,11 @@ div.csl-indent {
 </div>
 </div>
 <p>From the output, <strong>Cook County</strong> stands out, contributing roughly 16% of Illinois’ incarcerated individuals, followed by Will, Randolph, Logan, and Livingston counties. This helps identify where most of the incarcerated population is concentrated, which will be key for balancing comparisons in the analysis.</p>
-<div id="cell-10" class="cell" data-execution_count="63">
+<div id="cell-10" class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To avoid confusing the state_prop value with the sampled proportion that we compute below, we can drop state_prop now:</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>il_df <span class="op">=</span> il_df.drop(columns<span class="op">=</span>[<span class="st">'state_prop'</span>])</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>il_df <span class="op">=</span> il_df.drop(columns<span class="op">=</span>[<span class="st">"state_prop"</span>])</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Since they're only tracking three racial groups, the total of the three race counts should not equal the total incarcerated population. But let's check:</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>il_df[<span class="st">'three_cat_total'</span>] <span class="op">=</span> il_df[<span class="st">'Black'</span>] <span class="op">+</span> il_df[<span class="st">'White'</span>] <span class="op">+</span> il_df[<span class="st">'Latino'</span>]</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>il_df[<span class="st">"three_cat_total"</span>] <span class="op">=</span> il_df[<span class="st">"Black"</span>] <span class="op">+</span> il_df[<span class="st">"White"</span>] <span class="op">+</span> il_df[<span class="st">"Latino"</span>]</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>il_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="63">
 <div>
@@ -643,8 +646,8 @@ div.csl-indent {
 </div>
 </div>
 <p>To ensure the sample accurately represents the county-by-county distributions, the difference between <code>three_cat_total</code> and <code>Total</code> was used to construct the “Other” category.</p>
-<div id="cell-12" class="cell" data-execution_count="64">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>il_df[<span class="st">'Other'</span>] <span class="op">=</span> il_df[<span class="st">'Total'</span>] <span class="op">-</span> il_df[<span class="st">'three_cat_total'</span>]</span>
+<div id="cell-12" class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>il_df[<span class="st">"Other"</span>] <span class="op">=</span> il_df[<span class="st">"Total"</span>] <span class="op">-</span> il_df[<span class="st">"three_cat_total"</span>]</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>il_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="64">
 <div>
@@ -727,8 +730,8 @@ div.csl-indent {
 </div>
 </div>
 <p>The data source doesn’t provide much documentation, but it seems like some counties might be double-counting individuals who report more than one race. This assumption comes from the fact that, in some cases, the <code>three_cat_total</code> values (sum of White, Black, and Latino counts) are higher than the overall <code>Total</code> population for those counties.</p>
-<div id="cell-14" class="cell" data-execution_count="65">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>il_df[il_df[<span class="st">'three_cat_total'</span>] <span class="op">&gt;</span> il_df[<span class="st">'Total'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-14" class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>il_df[il_df[<span class="st">"three_cat_total"</span>] <span class="op">&gt;</span> il_df[<span class="st">"Total"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="65">
 <div>
 
@@ -865,14 +868,14 @@ div.csl-indent {
 </div>
 </div>
 <p>Since most of these cases involve low numbers (with Madison County and White County as notable exceptions—anomalous, but beyond the scope of what can be addressed without direct input from correctional facilities), the “Other” value was set to <code>0</code> in these instances.</p>
-<div id="cell-16" class="cell" data-execution_count="66">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>il_df[<span class="st">'Other'</span>] <span class="op">=</span> il_df[<span class="st">'Other'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="dv">0</span> <span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">0</span> <span class="cf">else</span> x)</span>
+<div id="cell-16" class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>il_df[<span class="st">"Other"</span>] <span class="op">=</span> il_df[<span class="st">"Other"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="dv">0</span> <span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">0</span> <span class="cf">else</span> x)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop three_cat_total, since we only needed that in order to form the other count:</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>il_df.drop(columns<span class="op">=</span>[<span class="st">'three_cat_total'</span>], inplace<span class="op">=</span><span class="va">True</span>, errors<span class="op">=</span><span class="st">'ignore'</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>il_df.drop(columns<span class="op">=</span>[<span class="st">"three_cat_total"</span>], inplace<span class="op">=</span><span class="va">True</span>, errors<span class="op">=</span><span class="st">"ignore"</span>)</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  Store these names in a list for future use (to ensure consistency in naming throughout):</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>race_category_names <span class="op">=</span> [<span class="st">'White'</span>, <span class="st">'Black'</span>, <span class="st">'Latino'</span>, <span class="st">'Other'</span>]</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>race_category_names <span class="op">=</span> [<span class="st">"White"</span>, <span class="st">"Black"</span>, <span class="st">"Latino"</span>, <span class="st">"Other"</span>]</span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>il_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="66">
 <div>
@@ -952,8 +955,8 @@ div.csl-indent {
 <section id="illinois-exoneree-countsdemographics" class="level1">
 <h1>Illinois Exoneree Counts/Demographics</h1>
 <p>The Illinois exoneration data was loaded, and the total number of exonerated individuals was calculated by taking the length of the dataframe using <code>len(exon_il_df)</code>. The result: <strong>548 exonerations</strong>. This serves as the starting point for understanding the scope of exoneration cases in Illinois.</p>
-<div id="cell-18" class="cell" data-execution_count="67">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>exon_il_df <span class="op">=</span> pd.read_csv(<span class="st">'../../data/processed-data/illinois_exoneration_data.csv'</span>)</span>
+<div id="cell-18" class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>exon_il_df <span class="op">=</span> pd.read_csv(<span class="st">"../../data/processed-data/illinois_exoneration_data.csv"</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>exon_il_df.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="67">
 <div>
@@ -1081,8 +1084,8 @@ div.csl-indent {
 </li>
 <li>The remaining categories, including <strong>Asian</strong> and <strong>Native American</strong>, each comprise less than <strong>0.2%</strong> of exonerations.</li>
 </ul>
-<div id="cell-21" class="cell" data-execution_count="69">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>exon_il_df[<span class="st">'race'</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-21" class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>exon_il_df[<span class="st">"race"</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="69">
 <pre><code>race
 Black              0.762774
@@ -1094,17 +1097,17 @@ Name: proportion, dtype: float64</code></pre>
 </div>
 </div>
 <p>Since the Prison Policy Initiative demographic data only includes Black, White, Latino, and Other as race categories, “Hispanic” was first renamed to “Latino” for consistency. “Asian” and “Native American” were then combined into the “Other” category. To preserve the original race data, it was saved into a new column called <code>Race_orig</code> for future reference if needed.</p>
-<div id="cell-23" class="cell" data-execution_count="70">
+<div id="cell-23" class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>recode_map <span class="op">=</span> {</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Black'</span>: <span class="st">'Black'</span>,</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Hispanic'</span>: <span class="st">'Latino'</span>,</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'White'</span>: <span class="st">'White'</span>,</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Asian'</span>: <span class="st">'Other'</span>,</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Native American'</span>: <span class="st">'Other'</span>,</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Black"</span>: <span class="st">"Black"</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Hispanic"</span>: <span class="st">"Latino"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"White"</span>: <span class="st">"White"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Asian"</span>: <span class="st">"Other"</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Native American"</span>: <span class="st">"Other"</span>,</span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>exon_il_df[<span class="st">'Race_orig'</span>] <span class="op">=</span> exon_il_df[<span class="st">'race'</span>]</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>exon_il_df[<span class="st">'race'</span>] <span class="op">=</span> exon_il_df[<span class="st">'race'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: recode_map[x])</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>exon_il_df[<span class="st">'race'</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>exon_il_df[<span class="st">"Race_orig"</span>] <span class="op">=</span> exon_il_df[<span class="st">"race"</span>]</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>exon_il_df[<span class="st">"race"</span>] <span class="op">=</span> exon_il_df[<span class="st">"race"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: recode_map[x])</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>exon_il_df[<span class="st">"race"</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="70">
 <pre><code>race
 Black     0.762774
@@ -1121,12 +1124,12 @@ Name: proportion, dtype: float64</code></pre>
 <h2 class="anchored" data-anchor-id="draw-representative-samples">Draw Representative Samples</h2>
 <p>The first step in the simulation is to draw a representative sample of <strong>548 “people”</strong> from the Illinois prison population. To achieve this, a weighted random sample with replacement was performed from the <code>il_df</code> dataset. Sampling weights were determined based on each county’s total incarcerated population, ensuring that counties with larger populations contributed proportionally more to the sample.</p>
 <p>A random seed (<code>random_state=5000</code>) was set to ensure the results are replicable. This step produces a valid population-weighted sample where the only known characteristic of each “person” is their county.</p>
-<div id="cell-25" class="cell" data-execution_count="71">
+<div id="cell-25" class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>il_sample_df <span class="op">=</span> il_df.sample(</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    num_il,</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    replace <span class="op">=</span> <span class="va">True</span>,</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    weights <span class="op">=</span> il_df[<span class="st">'Total'</span>],</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    random_state <span class="op">=</span> <span class="dv">5000</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    replace<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    weights<span class="op">=</span>il_df[<span class="st">"Total"</span>],</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">5000</span>,</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>).copy()</span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>il_sample_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="71">
@@ -1203,8 +1206,8 @@ Name: proportion, dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-26" class="cell" data-execution_count="72">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>il_sample_df[<span class="st">'county'</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-26" class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>il_sample_df[<span class="st">"county"</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="72">
 <pre><code>county
 Cook        0.142336
@@ -1220,23 +1223,25 @@ Name: proportion, dtype: float64</code></pre>
 <h2 class="anchored" data-anchor-id="simulating-racial-distribution">Simulating Racial Distribution</h2>
 <p>To replicate the racial makeup of the incarcerated population, racial counts for each county were used to create a probability distribution for race. For each row in <code>il_sample_df</code> (which represents a sampled county), a distribution was formed based on the race-specific counts, and a single “person” was drawn from that distribution.</p>
 <p>This process was done row-by-row using NumPy’s <code>random.choice()</code> function. A random seed (<code>RNG</code>) was also set to ensure the results remain consistent and replicable across runs.</p>
-<div id="cell-28" class="cell" data-execution_count="73">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(seed <span class="op">=</span> <span class="dv">5000</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw_race_sample(row):</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  race_counts <span class="op">=</span> [row[cur_val] <span class="cf">for</span> cur_val <span class="kw">in</span> race_category_names]</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  total_count <span class="op">=</span> <span class="bu">sum</span>(race_counts)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  race_probs <span class="op">=</span> [cur_count <span class="op">/</span> total_count <span class="cf">for</span> cur_count <span class="kw">in</span> race_counts]</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># And now we have a probability distribution! We can use rng.choice() to sample from it</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  sampled_vals <span class="op">=</span> rng.choice(race_category_names, size<span class="op">=</span><span class="dv">1</span>, p<span class="op">=</span>race_probs)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># We only sampled 1 value here, so we use [0] to extract it</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  sampled_val <span class="op">=</span> <span class="bu">list</span>(sampled_vals)[<span class="dv">0</span>]</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> sampled_val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-28" class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(seed<span class="op">=</span><span class="dv">5000</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw_race_sample(row):</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    race_counts <span class="op">=</span> [row[cur_val] <span class="cf">for</span> cur_val <span class="kw">in</span> race_category_names]</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    total_count <span class="op">=</span> <span class="bu">sum</span>(race_counts)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    race_probs <span class="op">=</span> [cur_count <span class="op">/</span> total_count <span class="cf">for</span> cur_count <span class="kw">in</span> race_counts]</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># And now we have a probability distribution! We can use rng.choice() to sample from it</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    sampled_vals <span class="op">=</span> rng.choice(race_category_names, size<span class="op">=</span><span class="dv">1</span>, p<span class="op">=</span>race_probs)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># We only sampled 1 value here, so we use [0] to extract it</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    sampled_val <span class="op">=</span> <span class="bu">list</span>(sampled_vals)[<span class="dv">0</span>]</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sampled_val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Before sampling, the function was tested by drawing multiple samples for a specific county—Cook County, in this case. To verify its accuracy, the expected proportions for sampling <code>N</code> inmates from Cook were first computed.</p>
-<div id="cell-30" class="cell" data-execution_count="74">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>cook_row <span class="op">=</span> il_df[il_df[<span class="st">'county'</span>] <span class="op">==</span> <span class="st">"Cook"</span>].iloc[<span class="dv">0</span>]</span>
+<div id="cell-30" class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>cook_row <span class="op">=</span> il_df[il_df[<span class="st">"county"</span>] <span class="op">==</span> <span class="st">"Cook"</span>].iloc[<span class="dv">0</span>]</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cname <span class="kw">in</span> race_category_names:</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  cook_row[<span class="ss">f'</span><span class="sc">{</span>cname<span class="sc">}</span><span class="ss">_prop'</span>] <span class="op">=</span> cook_row[cname] <span class="op">/</span> cook_row[<span class="st">'Total'</span>]</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    cook_row[<span class="ss">f"</span><span class="sc">{</span>cname<span class="sc">}</span><span class="ss">_prop"</span>] <span class="op">=</span> cook_row[cname] <span class="op">/</span> cook_row[<span class="st">"Total"</span>]</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>cook_row</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="74">
 <pre><code>county             Cook
@@ -1254,11 +1259,11 @@ Name: 15, dtype: object</code></pre>
 </div>
 </div>
 <p>This means that if the <code>draw_race_sample()</code> function is working correctly, it should generate “White” 15.2% of the time, “Black” 71.8% of the time, and so on. To confirm this, a sample of size <strong>N=5000</strong> was generated from Cook County to check whether the proportions align with the expected values.</p>
-<div id="cell-32" class="cell" data-execution_count="75">
+<div id="cell-32" class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">5000</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>cook_samples <span class="op">=</span> [draw_race_sample(cook_row) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(N)]</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>cook_sample_df <span class="op">=</span> pd.DataFrame(cook_samples, columns <span class="op">=</span> [<span class="st">'Race'</span>])</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>cook_sample_df[<span class="st">'Race'</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>cook_sample_df <span class="op">=</span> pd.DataFrame(cook_samples, columns<span class="op">=</span>[<span class="st">"Race"</span>])</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>cook_sample_df[<span class="st">"Race"</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="75">
 <pre><code>Race
 Black     0.7186
@@ -1270,20 +1275,16 @@ Name: proportion, dtype: float64</code></pre>
 </div>
 <p>The results look good and are very close to the expected proportions, which confirms that the <code>draw_race_sample()</code> function is working as intended. With this validation, the function can now be used to sample a race value for each row in <code>il_sample_df</code>.</p>
 <p>This step also introduces the <code>tqdm</code> library, which is useful for tracking progress when running simulations like this. It helps monitor how long the code takes per row, ensuring the simulation remains efficient.</p>
-<div id="cell-34" class="cell" data-execution_count="76">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>il_sample_df[<span class="st">'Race'</span>] <span class="op">=</span> il_sample_df.progress_apply(draw_race_sample, axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-34" class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>il_sample_df[<span class="st">"Race"</span>] <span class="op">=</span> il_sample_df.progress_apply(draw_race_sample, axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>100%|██████████| 548/548 [00:00&lt;00:00, 8289.38it/s]</code></pre>
 </div>
 </div>
-<div id="cell-35" class="cell" data-execution_count="78">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>sample_cols_to_keep <span class="op">=</span> [</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'county'</span>,</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'state'</span>,</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Race'</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>il_sample_df <span class="op">=</span> il_sample_df[sample_cols_to_keep].copy()</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>il_sample_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-35" class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>sample_cols_to_keep <span class="op">=</span> [<span class="st">"county"</span>, <span class="st">"state"</span>, <span class="st">"Race"</span>]</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>il_sample_df <span class="op">=</span> il_sample_df[sample_cols_to_keep].copy()</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>il_sample_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="78">
 <div>
 
@@ -1372,9 +1373,9 @@ Name: proportion, dtype: float64</code></pre>
 </div>
 </div>
 <p>Let’s take a look at the racial distribution of the Cook County subset from our sample to see how it turned out:</p>
-<div id="cell-37" class="cell" data-execution_count="79">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>cook_sample_df <span class="op">=</span> il_sample_df[il_sample_df[<span class="st">'county'</span>] <span class="op">==</span> <span class="st">"Cook"</span>].copy()</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>cook_sample_df[<span class="st">'Race'</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-37" class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>cook_sample_df <span class="op">=</span> il_sample_df[il_sample_df[<span class="st">"county"</span>] <span class="op">==</span> <span class="st">"Cook"</span>].copy()</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>cook_sample_df[<span class="st">"Race"</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="79">
 <pre><code>Race
 Black     0.743590
@@ -1397,43 +1398,45 @@ Name: proportion, dtype: float64</code></pre>
 - “Black,” “White,” and “Hispanic” categories were kept as-is.</p>
 <p>To clean up, the <strong><code>race</code></strong> and <strong><code>Race</code></strong> columns were combined, prioritizing non-NaN values to ensure no data was lost. The original <code>race</code> column was then dropped. Similarly, the <strong><code>county</code></strong> and <strong><code>County</code></strong> columns were merged, and the original <code>county</code> column was removed to streamline the final DataFrame.</p>
 <p>Finally, the resulting <strong><code>Race</code></strong> and <strong><code>County</code></strong> columns were checked to confirm the expected values, and the first few rows of the balanced dataset were displayed to verify everything was in place.</p>
-<div id="cell-40" class="cell" data-execution_count="80">
+<div id="cell-40" class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct our new label: exonerated vs. non-exonerated</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>exon_il_df[<span class="st">'Label'</span>] <span class="op">=</span> <span class="st">"Exonerated"</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>il_sample_df[<span class="st">'Label'</span>] <span class="op">=</span> <span class="st">"Non-Exonerated"</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>il_sample_df <span class="op">=</span> il_sample_df.rename(columns<span class="op">=</span>{<span class="st">'county'</span> : <span class="st">'County'</span>}) <span class="co"># Rename to distinguish when combining datasets</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co"># And combine!</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>balanced_df <span class="op">=</span> pd.concat([exon_il_df, il_sample_df], axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the mapping for 'race'</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>race_mapping <span class="op">=</span> {</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Asian'</span>: <span class="st">'Other'</span>,</span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Native American'</span>: <span class="st">'Other'</span>,</span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Black'</span>: <span class="st">'Black'</span>,</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'White'</span>: <span class="st">'White'</span>,</span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Hispanic'</span>: <span class="st">'Hispanic'</span></span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Map the 'race' column</span></span>
-<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>balanced_df[<span class="st">'race'</span>] <span class="op">=</span> balanced_df[<span class="st">'race'</span>].<span class="bu">map</span>(race_mapping)</span>
-<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine 'race' and 'Race' columns, prioritizing non-NaN values</span></span>
-<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>balanced_df[<span class="st">'Race'</span>] <span class="op">=</span> balanced_df[<span class="st">'race'</span>].combine_first(balanced_df[<span class="st">'Race'</span>])</span>
-<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop the old 'race' column</span></span>
-<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>balanced_df.drop(columns<span class="op">=</span>[<span class="st">'race'</span>], inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine 'county' and 'County' columns, prioritizing non-NaN values</span></span>
-<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>balanced_df[<span class="st">'County'</span>] <span class="op">=</span> balanced_df[<span class="st">'county'</span>].combine_first(balanced_df[<span class="st">'County'</span>])</span>
-<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop the old 'county' column</span></span>
-<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>balanced_df.drop(columns<span class="op">=</span>[<span class="st">'county'</span>], inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify the final Race column</span></span>
-<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(balanced_df[<span class="st">'Race'</span>].value_counts())</span>
-<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(balanced_df[<span class="st">'County'</span>].value_counts())</span>
-<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a>balanced_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>exon_il_df[<span class="st">"Label"</span>] <span class="op">=</span> <span class="st">"Exonerated"</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>il_sample_df[<span class="st">"Label"</span>] <span class="op">=</span> <span class="st">"Non-Exonerated"</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>il_sample_df <span class="op">=</span> il_sample_df.rename(</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>{<span class="st">"county"</span>: <span class="st">"County"</span>}</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>)  <span class="co"># Rename to distinguish when combining datasets</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># And combine!</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>balanced_df <span class="op">=</span> pd.concat([exon_il_df, il_sample_df], axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the mapping for 'race'</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>race_mapping <span class="op">=</span> {</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Asian"</span>: <span class="st">"Other"</span>,</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Native American"</span>: <span class="st">"Other"</span>,</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Black"</span>: <span class="st">"Black"</span>,</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"White"</span>: <span class="st">"White"</span>,</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Hispanic"</span>: <span class="st">"Hispanic"</span>,</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Map the 'race' column</span></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>balanced_df[<span class="st">"race"</span>] <span class="op">=</span> balanced_df[<span class="st">"race"</span>].<span class="bu">map</span>(race_mapping)</span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine 'race' and 'Race' columns, prioritizing non-NaN values</span></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>balanced_df[<span class="st">"Race"</span>] <span class="op">=</span> balanced_df[<span class="st">"race"</span>].combine_first(balanced_df[<span class="st">"Race"</span>])</span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop the old 'race' column</span></span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>balanced_df.drop(columns<span class="op">=</span>[<span class="st">"race"</span>], inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine 'county' and 'County' columns, prioritizing non-NaN values</span></span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>balanced_df[<span class="st">"County"</span>] <span class="op">=</span> balanced_df[<span class="st">"county"</span>].combine_first(balanced_df[<span class="st">"County"</span>])</span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop the old 'county' column</span></span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a>balanced_df.drop(columns<span class="op">=</span>[<span class="st">"county"</span>], inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify the final Race column</span></span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(balanced_df[<span class="st">"Race"</span>].value_counts())</span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(balanced_df[<span class="st">"County"</span>].value_counts())</span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a>balanced_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Race
 Black     709
@@ -1721,18 +1724,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1764,7 +1756,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1772,7 +1786,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
