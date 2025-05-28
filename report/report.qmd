@@ -15,11 +15,11 @@ This report investigates systemic failures in Illinois' criminal justice system,
 ---
 
 # Research Questions
-1. What patterns emerge in exoneration data across Illinois counties, and how do they reflect systemic failures in the justice system?  
-2. Why does Chicago account for such a disproportionate share of wrongful convictions in Illinois?  
-3. Does over-policing disproportionately target marginalized communities, particularly Black and Latino populations?  
-4. What role does police misconduct play in wrongful convictions across Illinois? Is there a relationship between misconduct and race?  
-5. Can data-driven models identify predictive patterns of wrongful convictions and over-policing across Illinois counties?  
+1. *What patterns emerge in exoneration data across Illinois counties, and how do they reflect systemic failures in the justice system?* 
+2. *Why does Chicago account for such a disproportionate share of wrongful convictions in Illinois?*  
+3. *Does over-policing disproportionately target marginalized communities, particularly Black and Latino populations?*  
+4. *What role does police misconduct play in wrongful convictions across Illinois? Is there a relationship between misconduct and race?*  
+5. *Can data-driven models identify predictive patterns of wrongful convictions and over-policing across Illinois counties?*  
 
 ---
 
@@ -150,11 +150,15 @@ To address these injustices, reforms must confront both the drivers of wrongful 
 
 These measures are essential not only to prevent future miscarriages of justice but also to repair the devastating harm inflicted on individuals, families, and entire communities.
 
-## Call to Action  
+## Toward Structural Accountability 
 
-The time for incremental change has passed. Systemic injustices require bold, comprehensive solutions. Policymakers, researchers, and advocates must work together to dismantle the cycles of harm perpetuated by wrongful convictions and over-policing.  
+The patterns in this data aren't isolated. They're systemic. Wrongful convictions and over-policing aren't just individual failures — they're symptoms of how power and bias operate in the justice system. Policymakers, researchers, and communities need to confront these patterns head-on. That means:
 
-The data is clear: Black men are disproportionately targeted, their lives derailed not by legitimate justice, but by bias, misconduct, and institutional failures. This crisis extends beyond individual cases—it reflects deeply embedded flaws that fracture families, destabilize communities, and erode public trust in the justice system.  
+* Investigating misconduct, not burying it.
+* Prioritizing accountability, not public image.
+* Investing in communities, not just carceral infrastructure.
+
+The data is clear: **Black men are disproportionately targeted, their lives derailed not by legitimate justice, but by bias, misconduct, and institutional failures. This crisis extends beyond individual cases—it reflects deeply embedded flaws that fracture families, destabilize communities, and erode public trust in the justice system.**  
 
 To move forward, it's necessary to center impacted voices, address racialized practices in law enforcement and prosecution, and commit to the restoration and healing of harmed communities. Real accountability—both for institutions and individuals—is not optional; it is a moral imperative.  
 
