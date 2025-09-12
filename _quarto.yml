@@ -50,15 +50,12 @@ website:
 
 format:
   html:
+    include-in-header: fonts.html
     theme:
       - lux
       - styles.scss
     bibliography: assets/references.bib
-    csl:  assets/apa-numeric-superscript.csl
+    csl: assets/apa-numeric-superscript.csl
     toc: true
-    toc-depth: 3 
-    page-layout: full 
-    
-
-
-
+    toc-depth: 3
+    page-layout: full

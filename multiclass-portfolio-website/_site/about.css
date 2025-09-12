@@ -1,0 +1,21 @@
+/*-- scss:defaults --*/
+.about-contents {
+    max-width: 150% !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    max-block-size: 150% !important;
+}
+
+
+/* social links: block of links */
+.about-entity .about-links {
+    justify-content: right !important;
+    column-gap: 0em !important;
+    font-size: 1.2em !important;
+}
+
+header.quarto-title-block .quarto-title h1.title,
+header.quarto-title-block .quarto-title .title.h1 {
+    text-align: right !important;
+}

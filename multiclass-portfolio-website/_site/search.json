@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Courtney Green",
     "section": "",
-    "text": "As a Master’s student in Data Science with a foundation in public policy, I explore how data can be harnessed to address complex societal challenges. My work focuses on leveraging advanced analytics and machine learning to develop actionable insights that inform equitable, evidence-based policies. By bridging technical expertise with policy understanding, I aim to create innovative solutions that drive meaningful social impact."
+    "text": "LinkedIn\n  \n  \n    \n     Github\n  \n  \n    \n     Email\n  \n\n      \nAs a Master’s student in Data Science with a foundation in public policy, I explore how data can be harnessed to address complex societal challenges. My work focuses on leveraging advanced analytics and machine learning to develop actionable insights that inform equitable, evidence-based policies. By bridging technical expertise with policy understanding, I aim to create innovative solutions that drive meaningful social impact.\nLearn more about me →"
   },
   {
     "objectID": "index.html#objective",
@@ -32,14 +32,14 @@
     "href": "experience.html",
     "title": "Experience",
     "section": "",
-    "text": "Oct 2024 – Present\nWashington, DC\n\nProvide support for PJI’s prison education programs, offering a Georgetown education to incarcerated students at the DC Jail and Patuxent Institution.\n\nMaintain and organize datasets related to program operations and performance; conduct data analysis to inform program development and report key performance metrics to the DC Department of Corrections (DCDC).\n\nAssist in creating and refining database structures and processes for more effective data collection and visualization, contributing to long-term program sustainability and data-driven decision-making.\n\nProgram Support Data Analysis Database Management Performance Metrics Sustainability Planning"
+    "text": "June 2025 – August 2025 · 3 mos\nArlington, VA\n\nDeveloped and refined an internal scoring tool to evaluate corporate CDP (Carbon Disclosure Project) responses; implemented complex formulas and conditional logic to automate scoring, flag data gaps, and generate dashboards for climate disclosure performance assessment.\nLed the design of an AI-powered Retrofit Portfolio Ranking Engine prototype, applying predictive modeling to help affordable housing agencies prioritize retrofit projects based on emissions impact, deferred maintenance needs, and funding alignment.\nSupported a 20-year energy demand forecast for NYISO using time series and ensemble models (ARIMA, linear regression, random forest) in R; contributed to model tuning and analysis of demand, wind, and nuclear generation data.\nAnalyzed downscaled climate models (e.g., CMIP6 variants) to assess fitness for localized\n\nData Automation Sustainability Analytics Energy forecasting Database Management Climate Risk Analysis Dashboard Development Time Series Forecasting"
   },
   {
     "objectID": "experience.html#georgetown-prisons-justice-initiative",
     "href": "experience.html#georgetown-prisons-justice-initiative",
     "title": "Experience",
-    "section": "",
-    "text": "Oct 2024 – Present\nWashington, DC\n\nProvide support for PJI’s prison education programs, offering a Georgetown education to incarcerated students at the DC Jail and Patuxent Institution.\n\nMaintain and organize datasets related to program operations and performance; conduct data analysis to inform program development and report key performance metrics to the DC Department of Corrections (DCDC).\n\nAssist in creating and refining database structures and processes for more effective data collection and visualization, contributing to long-term program sustainability and data-driven decision-making.\n\nProgram Support Data Analysis Database Management Performance Metrics Sustainability Planning"
+    "section": "Georgetown Prisons & Justice Initiative",
+    "text": "Georgetown Prisons & Justice Initiative\n\nScholars Program Associate\nOct 2024 – May 2025 · 8 mos\nWashington, DC\n\nProvide support for PJI’s prison education programs, offering a Georgetown education to incarcerated students at the DC Jail and Patuxent Institution.\n\nMaintain and organize datasets related to program operations and performance; conduct data analysis to inform program development and report key performance metrics to the DC Department of Corrections (DCDC).\n\nAssist in creating and refining database structures and processes for more effective data collection and visualization, contributing to long-term program sustainability and data-driven decision-making.\n\nProgram Support Data Analysis Database Management Performance Metrics"
   },
   {
     "objectID": "experience.html#evgo",
@@ -68,5 +68,68 @@
     "title": "Experience",
     "section": "Mindset",
     "text": "Mindset\n\nPolicy Research Intern\nJun 2021 – Aug 2022 · 1 yr 3 mos\nWashington, DC\n\nDrafted and revised client-facing deliverables, including policy states of play, side-by-side legislative comparisons, and policy outlook analyses.\n\nAnalyzed risks and opportunities across industries such as technology, energy, transportation, telecommunications, healthcare, and financial services.\n\nConducted quantitative and qualitative research on cybersecurity and privacy, supporting comprehensive policy evaluations.\n\nDeveloped and maintained a legislative tracker monitoring congressional floor activity, regulatory actions, and the Biden Administration’s policies.\n\nPolicy Analysis Legislative Research Cybersecurity Risk Assessment Qualitative Analysis"
+  },
+  {
+    "objectID": "experience.html#guidehouse",
+    "href": "experience.html#guidehouse",
+    "title": "Experience",
+    "section": "",
+    "text": "June 2025 – August 2025 · 3 mos\nArlington, VA\n\nDeveloped and refined an internal scoring tool to evaluate corporate CDP (Carbon Disclosure Project) responses; implemented complex formulas and conditional logic to automate scoring, flag data gaps, and generate dashboards for climate disclosure performance assessment.\nLed the design of an AI-powered Retrofit Portfolio Ranking Engine prototype, applying predictive modeling to help affordable housing agencies prioritize retrofit projects based on emissions impact, deferred maintenance needs, and funding alignment.\nSupported a 20-year energy demand forecast for NYISO using time series and ensemble models (ARIMA, linear regression, random forest) in R; contributed to model tuning and analysis of demand, wind, and nuclear generation data.\nAnalyzed downscaled climate models (e.g., CMIP6 variants) to assess fitness for localized\n\nData Automation Sustainability Analytics Energy forecasting Database Management Climate Risk Analysis Dashboard Development Time Series Forecasting"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "To continue developing my expertise in data science and analytics by applying my skills in predictive modeling, data engineering, and machine learning to real-world challenges. I aim to leverage my technical knowledge and creative problem-solving abilities to drive meaningful, data-informed decisions and contribute to innovative, collaborative projects in dynamic environments.\n::: ::::"
+  },
+  {
+    "objectID": "about.html#objective",
+    "href": "about.html#objective",
+    "title": "About",
+    "section": "",
+    "text": "To continue developing my expertise in data science and analytics by applying my skills in predictive modeling, data engineering, and machine learning to real-world challenges. I aim to leverage my technical knowledge and creative problem-solving abilities to drive meaningful, data-informed decisions and contribute to innovative, collaborative projects in dynamic environments.\n::: ::::"
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About",
+    "section": "Education",
+    "text": "Education\n\nGeorgetown University\n\nGraduate School of Arts & Sciences\nWashington, D.C.\nMaster of Science in Data Science & Analytics\nExpected May 2026\n\n\n\nUniversity of Virginia\n\nFrank Batten School of Leadership & Public Policy\nCharlottesville, VA\nBachelor of Arts in Public Policy & Leadership; Minor in Computer Science\nMay 2024"
+  },
+  {
+    "objectID": "about.html#interests",
+    "href": "about.html#interests",
+    "title": "About",
+    "section": "Interests",
+    "text": "Interests\nBeyond the professional sphere, I’m most fulfilled by hobbies that blend creativity with a deep sense of exploration and discovery. Whether I’m delving into European monarchal history or crafting through embroidery and crochet, I enjoy activities that engage both my hands and my mind. I find the most joy in cooking and baking, where creativity meets intuition and curiosity. It’s a process of experimentation, adaptability, and creating something meaningful to share with others—a perfect balance of structure and spontaneity. This same fascination with shaping outcomes draws me to life simulation and narrative-driven games like The Sims, Life is Strange, and Detroit: Become Human. These games, much like cooking, require thoughtful decisions and invite you to explore how small choices can lead to vastly different results. I’m continually inspired by pursuits that challenge me to think creatively, build connections, and embrace new perspectives."
+  },
+  {
+    "objectID": "indexformer.html",
+    "href": "indexformer.html",
+    "title": "Courtney Green",
+    "section": "",
+    "text": "As a Master’s student in Data Science with a foundation in public policy, I explore how data can be harnessed to address complex societal challenges. My work focuses on leveraging advanced analytics and machine learning to develop actionable insights that inform equitable, evidence-based policies. By bridging technical expertise with policy understanding, I aim to create innovative solutions that drive meaningful social impact. ::: :::: :::: {.columns} ::: {.column width=“50%”} - Occupation:  Master’s Student in Data Science & Analytics ::: ::: {.column width=“50%”} - City: Washington, D.C.\n::: ::::\n\n\n\n\nTo continue developing my expertise in data science and analytics by applying my skills in predictive modeling, data engineering, and machine learning to real-world challenges. I aim to leverage my technical knowledge and creative problem-solving abilities to drive meaningful, data-informed decisions and contribute to innovative, collaborative projects in dynamic environments.\n\n\n\n\n\n\n\n\n\n\n\nWashington, D.C.\nMaster of Science in Data Science & Analytics\nExpected May 2026\n\n\n\n\n\n\nCharlottesville, VA\nBachelor of Arts in Public Policy & Leadership; Minor in Computer Science\nMay 2024\n\n\n\n\n\n\n\n\n\nBeyond the professional sphere, I’m most fulfilled by hobbies that blend creativity with a deep sense of exploration and discovery. Whether I’m delving into European monarchal history or crafting through embroidery and crochet, I enjoy activities that engage both my hands and my mind. I find the most joy in cooking and baking, where creativity meets intuition and curiosity. It’s a process of experimentation, adaptability, and creating something meaningful to share with others—a perfect balance of structure and spontaneity. This same fascination with shaping outcomes draws me to life simulation and narrative-driven games like The Sims, Life is Strange, and Detroit: Become Human. These games, much like cooking, require thoughtful decisions and invite you to explore how small choices can lead to vastly different results. I’m continually inspired by pursuits that challenge me to think creatively, build connections, and embrace new perspectives."
+  },
+  {
+    "objectID": "indexformer.html#objective",
+    "href": "indexformer.html#objective",
+    "title": "Courtney Green",
+    "section": "",
+    "text": "To continue developing my expertise in data science and analytics by applying my skills in predictive modeling, data engineering, and machine learning to real-world challenges. I aim to leverage my technical knowledge and creative problem-solving abilities to drive meaningful, data-informed decisions and contribute to innovative, collaborative projects in dynamic environments."
+  },
+  {
+    "objectID": "indexformer.html#education",
+    "href": "indexformer.html#education",
+    "title": "Courtney Green",
+    "section": "",
+    "text": "Washington, D.C.\nMaster of Science in Data Science & Analytics\nExpected May 2026\n\n\n\n\n\n\nCharlottesville, VA\nBachelor of Arts in Public Policy & Leadership; Minor in Computer Science\nMay 2024"
+  },
+  {
+    "objectID": "indexformer.html#interests",
+    "href": "indexformer.html#interests",
+    "title": "Courtney Green",
+    "section": "",
+    "text": "Beyond the professional sphere, I’m most fulfilled by hobbies that blend creativity with a deep sense of exploration and discovery. Whether I’m delving into European monarchal history or crafting through embroidery and crochet, I enjoy activities that engage both my hands and my mind. I find the most joy in cooking and baking, where creativity meets intuition and curiosity. It’s a process of experimentation, adaptability, and creating something meaningful to share with others—a perfect balance of structure and spontaneity. This same fascination with shaping outcomes draws me to life simulation and narrative-driven games like The Sims, Life is Strange, and Detroit: Become Human. These games, much like cooking, require thoughtful decisions and invite you to explore how small choices can lead to vastly different results. I’m continually inspired by pursuits that challenge me to think creatively, build connections, and embrace new perspectives."
   }
 ]

@@ -12,33 +12,36 @@ website:
   title: "Portfolio"
   favicon: "images/gu-logo.png"
   navbar:
-    left:
+    right:
       - href: index.qmd
         text: Home
-
+      - href: about.qmd
+        text: About
       - text: "Projects"
         menu: 
-          - text: "DSAN-5000: Data Science & Analytics"
+          - text: "Probabilistic Modeling of Prosecutorial Misconduct and Over-Policing in Chicago"
             href: projects/dsan-5000/_site/index.html
-          - text: "DSAN-5100: Probabilistic Modeling & Statistical Computing"
+          - text: "Quantitative Analysis of Maternal Health Indicators and Reproductive Policy Variation"
             href: projects/dsan-5100/_site/index.html
-          - text: "DSAN Second-Year Scholarship"
+          - text: "Data Driven Exploration of Humanitarian Aid Worker Vulnerability"
             href: https://dsan-viz2025.github.io/ 
+          - text: "Modeling Voter Turnout and Partisan Lean in the 2024 U.S. Presidential Election"
+            href: images/ML_Models_for_County-Level_Analysis_and_Voter_Turnout.pdf
+            target: _blank
       - text: "Experience"
         href: experience.qmd
 
-      - text: "Resume"
-        href: images/resume.pdf
+      - text: "Curriculum Vitae"
+        href: images/Green_CV_2025.pdf
         target: _blank
 
       - icon: globe
         href: https://native-land.ca/
 
-    right:
-      - icon: github
-        href: "https://github.com/courtneyrgreen/dsan5000_final_project"
-      - text: "Back to Portfolio"
-        href: "https://crg123.georgetown.domains/"
+  page-footer:  
+      left: >-
+        &#169; 2025 Courtney Green &#8729; Made with [Quarto](https://quarto.org)
+
 format:
   html:
     theme: 
