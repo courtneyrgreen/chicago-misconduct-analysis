@@ -11,7 +11,7 @@ project:
     - "!multiclass-portfolio-website/**"
 
 website:
-  title: "DSAN-5000: Project"
+  title: "DSAN-5000"
   favicon: "assets/gu-logo.png"
   navbar:
     search: true

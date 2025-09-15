@@ -1,0 +1,92 @@
+/* ============================================================================
+   Index Page Overrides
+   These rules only apply to index.qmd. Global styles come from custom.scss.
+   ========================================================================== */
+
+/* ------------------------------
+   Title block alignment
+   ------------------------------ */
+header.quarto-title-block .quarto-title h1.title,
+header.quarto-title-block .quarto-title .title.h1 {
+  text-align: right !important;
+  font-size: 65px !important;
+  /* move site title to the right on homepage */
+}
+
+/* ------------------------------
+      Subtitle styling
+      ------------------------------ */
+p.subtitle.lead {
+  text-align: right;
+  /* align subtitle text right */
+  color: #D0BFCC !important;
+  /* set subtitle color (light rose) */
+}
+
+p.subtitle {
+  margin-bottom: 0 !important;
+  /* remove extra space below subtitle */
+}
+
+.lead {
+  font-size: 20px !important;
+  /* override Quarto's default lead size */
+  font-weight: 550 !important;
+  /* slightly heavier weight */
+}
+
+/* Force all paragraphs to align right on index */
+p {
+  text-align: right !important;
+  font-family: "Red Hat Text", sans-serif !important;
+}
+
+/* ------------------------------
+      About section layout
+      ------------------------------ */
+.about-contents {
+  max-width: 150% !important;
+  /* allow content to spread wider */
+  margin: 0 auto !important;
+  /* center horizontally */
+  display: flex !important;
+  /* arrange children in a row */
+  flex-direction: row !important;
+  max-block-size: 150% !important;
+}
+
+/* ------------------------------
+      About section – social links
+      ------------------------------ */
+.about-entity .about-links {
+  justify-content: right !important;
+  /* push links to the right */
+  column-gap: 0em !important;
+  /* no space between items */
+  font-size: 1.2em !important;
+  /* slightly larger icons/text */
+}
+
+/* Remove borders from social links */
+div.quarto-about-solana .about-entity .about-link {
+  border: none !important;
+}
+
+/* Hover state for social icons (LinkedIn/GitHub/Email) */
+.quarto-about-solana .about-entity .about-links>a.about-link:hover,
+.quarto-about-solana .about-entity .about-links>a.about-link:hover .about-link-text,
+.quarto-about-solana .about-entity .about-links>a.about-link:hover i {
+  color: #D0BFCC !important;
+  /* light rose */
+}
+
+/* "Learn more about me →" link styles */
+.quarto-about-solana .about-entity a.about-links.subtitle {
+  color: #D0BFCC !important;
+  /* default light rose */
+}
+
+.quarto-about-solana .about-entity a.about-links.subtitle:hover {
+  color: #FAF8F2 !important;
+  /* cream on hover */
+}

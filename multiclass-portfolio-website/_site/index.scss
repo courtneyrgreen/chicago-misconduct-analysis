@@ -29,12 +29,15 @@ p {
     text-align: right !important;
 }
 
+p.subtitle {
+    margin-bottom: 0px !important;
+}
+
 .lead {
     font-size: 1.25rem;
     font-weight: 550 !important;
     font-size: 20px !important;
 }
-
 
 .about-contents {
     max-width: 150% !important;
@@ -44,7 +47,6 @@ p {
     max-block-size: 150% !important;
 }
 
-
 /* social links: block of links */
 .about-entity .about-links {
     justify-content: right !important;
@@ -52,14 +54,33 @@ p {
     font-size: 1.2em !important;
 }
 
-a.a {
-    color: $light-pink !important;
-}
+
 
 header.quarto-title-block .quarto-title h1.title,
 header.quarto-title-block .quarto-title .title.h1 {
     text-align: right !important;
 }
+
+div.quarto-about-solana .about-entity .about-link {
+    border: none !important;
+}
+
+
+.quarto-about-solana .about-entity .about-links>a.about-link:hover,
+.quarto-about-solana .about-entity .about-links>a.about-link:hover .about-link-text,
+.quarto-about-solana .about-entity .about-links>a.about-link:hover i {
+    color: #FAF8F2 !important;
+    /* try hex first; replace with $cream once SCSS compiles */
+}
+
+.quarto-about-solana .about-entity a.about-links.subtitle:hover {
+    color: #FAF8F2 !important;
+}
+
+.quarto-about-solana .about-entity a.about-links.subtitle {
+    color: #D0BFCC !important;
+}
+
 
 .quarto-document-content {
     max-width: 100% !important;

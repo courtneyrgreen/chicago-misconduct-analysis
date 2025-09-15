@@ -9,12 +9,10 @@ project:
     - projects/dsan-5100/_site
 
 website:
-  title: "Portfolio"
+  title: "Courtney Green"
   favicon: "images/gu-logo.png"
   navbar:
     right:
-      - href: index.qmd
-        text: Home
       - href: about.qmd
         text: About
       - text: "Projects"
@@ -46,6 +44,9 @@ format:
   html:
     theme: 
       - lux
-      - custom.scss
+      - styles/courtney-theme.scss
     toc: true
     page-layout: full 
+    include-in-header:
+      - text: |
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
