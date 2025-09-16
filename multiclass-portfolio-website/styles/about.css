@@ -1,0 +1,8 @@
+/* ------------------------------
+   Title block alignment
+   ------------------------------ */
+header.quarto-title-block .quarto-title h1.title,
+header.quarto-title-block .quarto-title .title.h1 {
+    text-align: left !important;
+    font-size: 65px !important;
+}

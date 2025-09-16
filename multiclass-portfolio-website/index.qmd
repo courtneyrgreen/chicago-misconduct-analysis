@@ -40,6 +40,7 @@ format:
 
 I am a **data scientist, policy analyst, and digital storyteller**. I explore how data can be harnessed to address complex societal challenges. My work focuses on leveraging **advanced analytics and machine learning** to develop actionable insights that inform **equitable, evidence-based policies**. By bridging technical expertise with policy understanding, I aim to create solutions that drive meaningful social impact.
 
+
 [Learn more about me &rarr;](about.qmd){.about-links .subtitle}
 
 :::
