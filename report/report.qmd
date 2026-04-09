@@ -36,22 +36,22 @@ This report investigates systemic failures in Illinois' criminal justice system,
 
 ---
 
-## 2. Distribution of Years Wrongfully Lost by Race  
-![Race Distribution of Years Lost](../images/race_distribution_of_years_lost.png)  
+## 2. Distribution of Years Wrongfully Lost by Race
+<iframe src="figures/race_distribution_of_years_lost.html" width="100%" height="530px" frameborder="0" scrolling="no"></iframe>
 
 - **Insight**: Black individuals have disproportionately lost years to wrongful imprisonment compared to other racial groups. The distribution skews heavily toward shorter wrongful imprisonments, but significant outliers exist where individuals lost 20+ years. These findings highlight the compounding harm caused by systemic injustice, as even shorter sentences fracture families and communities.  
 
 ---
 
-## 3. Total Misconduct Tags by Race  
-![Total Misconduct by Race](../images/total_misconduct_tags_by_race.png)  
+## 3. Total Misconduct Tags by Race
+<iframe src="figures/total_misconduct_tags_by_race.html" width="100%" height="530px" frameborder="0" scrolling="no"></iframe>
 
 - **Insight**: Police and prosecutorial misconduct overwhelmingly affect Black individuals. Misconduct types include perjury, witness tampering, and fabricated evidence. The stark disparity underscores how misconduct disproportionately drives wrongful convictions within marginalized communities and intensifies mistrust in law enforcement.   
 
 ---
 
-## 4. Misconduct Tags by County and Race  
-![Misconduct Tags by County](../images/misconduct_tags_county_race.png)  
+## 4. Misconduct Tags by County and Race
+<iframe src="figures/misconduct_tags_county_race.html" width="100%" height="900px" frameborder="0" scrolling="no"></iframe>
 
 - **Insight**: Cook County exhibits the highest number of misconduct cases, especially targeting Black individuals. Some rural counties (e.g., Winnebago, DuPage) also show patterns of concentrated misconduct despite smaller populations, emphasizing that these issues are not limited to urban areas. This highlights a need for local accountability mechanisms to address misconduct statewide.   
 
@@ -64,15 +64,15 @@ This report investigates systemic failures in Illinois' criminal justice system,
 
 ---
 
-## 6. Disproportionality Index: Exonerations vs. Arrests by Race  
-![Disproportionality Index - Arrests](../images/disproportionality_index_exon_v_arrests.png)  
+## 6. Disproportionality Index: Exonerations vs. Arrests by Race
+<iframe src="figures/disproportionality_index_exon_v_arrests.html" width="100%" height="530px" frameborder="0" scrolling="no"></iframe>
 
 - **Insight**: Exonerations compared to arrests highlight the front-end failures in the justice system. Black individuals have a disproportionality index exceeding **1.6**, meaning they experience wrongful convictions at rates far higher than their arrest frequency would suggest. This points to over-policing and biased arrest practices that disproportionately affect Black communities. White individuals, in contrast, have a disproportionality index well below parity, suggesting fewer wrongful arrests and more favorable outcomes. These trends emphasize systemic bias in policing practices, where wrongful convictions are more likely to result from unjustified or excessive arrests among marginalized populations.  
 
 ---
 
-## 7. Disproportionality Index: Exonerations vs. Incarcerated Population by Race  
-![Disproportionality Index - Incarceration](../images/disproportionality_index_exon_v_incarcerated.png)  
+## 7. Disproportionality Index: Exonerations vs. Incarcerated Population by Race
+<iframe src="figures/disproportionality_index_exon_v_incarcerated.html" width="100%" height="530px" frameborder="0" scrolling="no"></iframe>
 
 - **Insight**: The Disproportionality Index comparing exonerations to the incarcerated population underscores deeper systemic inequities within the justice process. The dashed line at **1.0** represents parity—where exonerations align proportionally with incarceration rates. For Black individuals, the index value significantly exceeds **1.8**, indicating extreme overrepresentation in wrongful convictions relative to incarceration rates. This suggests systemic issues, such as biased investigations, sentencing disparities, and racial profiling, disproportionately impacting Black communities.
 
@@ -80,15 +80,15 @@ Hispanic individuals show an index value below that of Black individuals but abo
 
 ---
 
-## 8. Age Distribution of Exonerees by Race  
-![Age Distribution](../images/age_distribution_by_race.png)  
+## 8. Age Distribution of Exonerees by Race
+<iframe src="figures/age_distribution_by_race.html" width="100%" height="530px" frameborder="0" scrolling="no"></iframe>
 
 - **Insight**: Wrongful convictions primarily impact Black men aged **20-30**, a period critical for family stability, career development, and education. This age-based harm perpetuates cycles of poverty and systemic trauma, further marginalizing affected individuals and communities.   
 
 ---
 
-## 9. Breakdown of Official Misconduct by Race  
-![Breakdown of Misconduct](../images/breakdown_of_OM_by_race.png)  
+## 9. Breakdown of Official Misconduct by Race
+<iframe src="figures/breakdown_of_OM_by_race.html" width="100%" height="480px" frameborder="0" scrolling="no"></iframe>
 
 - **Insight**: Black individuals are overwhelmingly impacted by police misconduct, including perjury, false accusations, and suppression of evidence. This pattern reinforces systemic racial bias in the justice process and raises calls for enhanced accountability and oversight mechanisms within law enforcement.   
 
@@ -96,14 +96,14 @@ Hispanic individuals show an index value below that of Black individuals but abo
 
 ## 10. Predicted Probabilities of Wrongful Conviction  
 
-**By County**  
-![Predicted Probabilities - Counties](../images/predicted_prob_county.png)  
+**By County**
+<iframe src="figures/predicted_prob_county.html" width="100%" height="580px" frameborder="0" scrolling="no"></iframe>
 
-**By Race and County**  
-![Predicted Probabilities - Race and County](../images/predicted_prob_county_race.png)  
+**By Race and County**
+<iframe src="figures/predicted_prob_county_race.html" width="100%" height="530px" frameborder="0" scrolling="no"></iframe>
 
-**By Race**  
-![Predicted Probabilities - Race](../images/predicted_prob_race.png)  
+**By Race**
+<iframe src="figures/predicted_prob_race.html" width="100%" height="530px" frameborder="0" scrolling="no"></iframe>
 
 - **Insight**: Predictive models identify Cook County and surrounding areas as high-risk for wrongful convictions, particularly for Black individuals. Smaller counties also display concerning probabilities, reinforcing the presence of systemic racial inequities across Illinois' justice system.  
 
