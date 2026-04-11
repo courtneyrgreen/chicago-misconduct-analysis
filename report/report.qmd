@@ -25,12 +25,12 @@ This report investigates systemic failures in Illinois' criminal justice system,
 
 # Data Visualizations and Key Insights
 
-## 1. Geospatial Trends of Arrests and Exonerations by County  
-**Log-Scaled Arrests**  
-![Arrests by County](../images/log_scaled_arrests_by_county.png)  
+## 1. Geospatial Trends of Arrests and Exonerations by County
+**Log-Scaled Arrests**
+![Arrests by County](../images/log_scaled_arrests_by_county.png)
 
-**Log-Scaled Exonerations**  
-![Exonerations by County](../images/log_scaled_exonerations_by_county.png)  
+**Log-Scaled Exonerations**
+![Exonerations by County](../images/log_scaled_exonerations_by_county.png)
 
 - **Insight**: Cook County leads Illinois in both arrests and wrongful convictions, showing its outsized role in systemic failures. Smaller rural counties, while having fewer total cases, still display disproportionately high rates of wrongful convictions relative to their population size. This suggests that geographic disparities exist, and rural patterns remain underexplored in justice system analyses.
 
@@ -57,8 +57,8 @@ This report investigates systemic failures in Illinois' criminal justice system,
 
 ---
 
-## 5. Overrepresentation Ratios by County  
-![Overrepresentation Ratios by County](../images/overrepresentation_rations_by_county.png)  
+## 5. Overrepresentation Ratios by County
+![Overrepresentation Ratios by County](../images/overrepresentation_rations_by_county.png)
 
 - **Insight**: Black and Latino populations are significantly overrepresented in incarceration rates across Illinois counties. The map highlights systemic disparities, particularly in counties with higher urban populations and historical patterns of policing bias. White populations, by contrast, remain largely underrepresented in incarceration rates. These findings emphasize racial inequities in the justice system at a county level.  
 
