@@ -10,7 +10,7 @@ project:
 
 website:
   title: "Courtney Green"
-  favicon: "images/cg-favicon.png"
+  favicon: "images/favicon-32x32.png"
   navbar:
     right:
       - href: about.qmd
