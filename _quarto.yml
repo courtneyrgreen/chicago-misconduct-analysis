@@ -12,6 +12,7 @@ project:
     - "*.ipynb"
     - "!multiclass-portfolio-website/**"
     - "!docs/**"
+    - "!technical-details/progress-log.qmd"
 
 website:
   title: "DSAN-5000"
@@ -37,8 +38,6 @@ website:
             href: technical-details/unsupervised-learning/main.ipynb 
           - text: Supervised Learning
             href: technical-details/supervised-learning/main.ipynb 
-          - text: Progress Log
-            href: technical-details/progress-log.qmd
           - text: LLM usage Log
             href: technical-details/llm-usage-log.qmd
       - href: bibliography.qmd
