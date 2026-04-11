@@ -4,11 +4,14 @@ project:
     - images
     - data
     - "!multiclass-portfolio-website/**"
+    - "!docs/**"
+    - "!_site/**"
 
   render:
     - "*.qmd"
     - "*.ipynb"
     - "!multiclass-portfolio-website/**"
+    - "!docs/**"
 
 website:
   title: "DSAN-5000"
