@@ -325,12 +325,12 @@ div.csl-indent {
 <li>Statewide totals align exactly with the CHRI database at the time of retrieval, which occurs twice annually.</li>
 </ul>
 <p>Further, the dataset excludes juvenile arrests, class C misdemeanors, and cases with missing demographic details. For this project, the data was first filtered by <strong>race, county, and year</strong>, and then downloaded directly to examine patterns relevant to my analysis.<span class="citation" data-cites="illinois_criminal_justice_information_authority_arrests_2024"><sup><a href="#ref-illinois_criminal_justice_information_authority_arrests_2024" role="doc-biblioref">2</a></sup></span></p>
-<div id="cell-3" class="cell" data-execution_count="4">
+<div id="cell-3" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>arrest_df <span class="op">=</span> pd.read_csv(<span class="st">"../../data/raw-data/illinois_arrest_explorer_data.csv"</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>arrest_df.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
 
@@ -447,10 +447,10 @@ div.csl-indent {
 <p>The exoneration dataset was downloaded directly from the <a href="https://www.law.umich.edu/special/exoneration/Pages/Spread-Sheet-Request-Form.aspx" target="_blank"><strong><em>National Registry of Exonerations</em></strong></a>, a collaborative initiative by the Newkirk Center for Science and Society at the University of California (Irvine), the University of Michigan Law School, and Michigan State University College of Law. Established in 2012 by Rob Warden, then Executive Director of Northwestern University’s Pritzker School of Law’s Center on Wrongful Convictions, and Samuel R. Gross, a Law Professor at the University of Michigan, the Registry collects and publishes comprehensive, searchable statistical data and detailed case records for exonerations of innocent criminal defendants in the United States dating back to 1989<span class="citation" data-cites="university_of_california_irvine_newkirk_center_for_science__society_national_2024"><sup><a href="#ref-university_of_california_irvine_newkirk_center_for_science__society_national_2024" role="doc-biblioref">3</a></sup></span>.</p>
 <p>The Registry defines exonerations as cases where a person, following new evidence of innocence, is officially cleared through actions like <strong>factual declarations of innocence</strong>, <strong>pardons</strong>, or the <strong>dismissal/acquittal</strong> of charges.<span class="citation" data-cites="university_of_california_irvine_newkirk_center_for_science__society_national_criteria"><sup><a href="#ref-university_of_california_irvine_newkirk_center_for_science__society_national_criteria" role="doc-biblioref">4</a></sup></span></p>
 <p>To access the exoneration dataset, a <a href="https://www.law.umich.edu/special/exoneration/Pages/Spread-Sheet-Request-Form.aspx" target="_blank"><strong>spreadsheet request form</strong></a> was submitted, and the dataset was provided under conditions ensuring its proper use. These conditions include restrictions on retransmission, a requirement for advance notice of publication, and the obligation to report any identified errors or missing data.</p>
-<div id="cell-5" class="cell" data-execution_count="3">
+<div id="cell-5" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>exoneration_df <span class="op">=</span> pd.read_csv(<span class="st">"../../data/raw-data/US_exoneration_data.csv"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>exoneration_df.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
 
@@ -566,40 +566,41 @@ div.csl-indent {
 <section id="adding-context-web-scraping-and-demographic-data" class="level2">
 <h2 class="anchored" data-anchor-id="adding-context-web-scraping-and-demographic-data">Adding Context: Web Scraping and Demographic Data</h2>
 <p>To contextualize these datasets within broader racial and geographic dynamics, I scraped incarceration demographics for Illinois counties from the <a href="https://www.prisonpolicy.org/racialgeography/counties.html"><strong>Prison Policy Initiative’s</strong></a>. Using Python libraries like <code>requests</code> and <code>BeautifulSoup</code>, I extracted and processed incarceration rates by race for geographic analysis. This provided insight into racial overrepresentation within incarceration systems and illuminated trends at the county level.<span class="citation" data-cites="prison_policy_initiative_home_2024"><sup><a href="#ref-prison_policy_initiative_home_2024" role="doc-biblioref">5</a></sup></span></p>
-<div id="cell-7" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the HTML content of the target webpage</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>html_url <span class="op">=</span> <span class="st">"https://www.prisonpolicy.org/racialgeography/counties.html"</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> requests.get(html_url)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Parse the HTML content with BeautifulSoup</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>soup <span class="op">=</span> BeautifulSoup(result.text)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Locate the table element containing the data</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>table_elt <span class="op">=</span> soup.find(<span class="st">"table"</span>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the HTML table into a Pandas DataFrame</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>table_sio <span class="op">=</span> StringIO(<span class="bu">str</span>(table_elt))</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>county_df <span class="op">=</span> pd.read_html(table_sio)[<span class="dv">0</span>]</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean the column names by removing unnecessary characters</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>county_df.columns <span class="op">=</span> [</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    c.replace(<span class="st">""</span>, <span class="st">""</span>).replace(<span class="st">""</span>, <span class="st">""</span>).strip() <span class="cf">for</span> c <span class="kw">in</span> county_df.columns</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for Illinois</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>il_df <span class="op">=</span> county_df[county_df[<span class="st">"State"</span>] <span class="op">==</span> <span class="st">"Illinois"</span>].copy()</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Export to CSV</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>il_df.to_csv(<span class="st">"../../data/raw-data/representation_by_county_raw.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Data saved to 'representation_by_county_raw.csv'"</span>)</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>il_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-7" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> io <span class="im">import</span> StringIO</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the HTML content of the target webpage</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>html_url <span class="op">=</span> <span class="st">"https://www.prisonpolicy.org/racialgeography/counties.html"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> requests.get(html_url)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Parse the HTML content with BeautifulSoup</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>soup <span class="op">=</span> BeautifulSoup(result.text)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Locate the table element containing the data</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>table_elt <span class="op">=</span> soup.find(<span class="st">"table"</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the HTML table into a Pandas DataFrame</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>table_sio <span class="op">=</span> StringIO(<span class="bu">str</span>(table_elt))</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>county_df <span class="op">=</span> pd.read_html(table_sio)[<span class="dv">0</span>]</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean the column names by removing unnecessary characters</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>county_df.columns <span class="op">=</span> [</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    c.replace(<span class="st">""</span>, <span class="st">""</span>).replace(<span class="st">""</span>, <span class="st">""</span>).strip() <span class="cf">for</span> c <span class="kw">in</span> county_df.columns</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for Illinois</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>il_df <span class="op">=</span> county_df[county_df[<span class="st">"State"</span>] <span class="op">==</span> <span class="st">"Illinois"</span>].copy()</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Export to CSV</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>il_df.to_csv(<span class="st">"../../data/raw-data/representation_by_county_raw.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Data saved to 'representation_by_county_raw.csv'"</span>)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>il_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Data saved to 'representation_by_county_raw.csv'</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="26">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
 
@@ -738,7 +739,7 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="geographical-insights-api-based-geocoding">Geographical Insights: API-Based Geocoding</h2>
 <p>To strengthen the exploratory data analysis (EDA), I utilized geocoded data, adding latitude, longitude, and full addresses for Illinois counties. This addition enabled the visualization of systemic racial disparities across geographic areas, revealing trends and disparities among counties, identifying geographic clusters of exoneration cases, and examining regional variations in systemic factors.</p>
 <p>The geocoding process was conducted using <a href="https://geopy.readthedocs.io/en/stable/" target="_blank"><strong>GeoPy</strong></a>, a Python library that serves as an interface to geocoding APIs, specifically the <strong>Nominatim API</strong> from OpenStreetMap. GeoPy simplifies the retrieval of geographic details like latitude, longitude, and full address from place names by sending requests to the Nominatim API and processing the responses.</p>
-<div id="cell-9" class="cell">
+<div id="cell-9" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the Nominatim geocoder for converting location names into geographic coordinates:</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> geopy.geocoders <span class="im">import</span> Nominatim</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -771,30 +772,28 @@ div.csl-indent {
 <span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>                <span class="st">"longitude"</span>: location.longitude,  <span class="co"># The longitude coordinate</span></span>
 <span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>            }</span>
 <span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:  <span class="co"># Print a message if no geocoding result is found:</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"Failed: No result for </span><span class="sc">{</span>row[<span class="st">'County'</span>]<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>row[<span class="st">'State'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">None</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:  <span class="co"># Handle errors during geocoding and print them:</span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Error geocoding </span><span class="sc">{</span>row[<span class="st">'County'</span>]<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>row[<span class="st">'State'</span>]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the geocoding function to each Illinois county:</span></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>geocoded_results <span class="op">=</span> illinois_counties.<span class="bu">apply</span>(geocode_county, axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the geocoding results into separate columns for address, latitude, and longitude:</span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>illinois_counties[<span class="st">"geocode_address"</span>] <span class="op">=</span> geocoded_results.<span class="bu">apply</span>(</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> x: x[<span class="st">"address"</span>] <span class="cf">if</span> <span class="bu">isinstance</span>(x, <span class="bu">dict</span>) <span class="kw">and</span> <span class="st">"address"</span> <span class="kw">in</span> x <span class="cf">else</span> <span class="va">None</span></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>illinois_counties[<span class="st">"latitude"</span>] <span class="op">=</span> geocoded_results.<span class="bu">apply</span>(</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> x: x[<span class="st">"latitude"</span>] <span class="cf">if</span> <span class="bu">isinstance</span>(x, <span class="bu">dict</span>) <span class="kw">and</span> <span class="st">"latitude"</span> <span class="kw">in</span> x <span class="cf">else</span> <span class="va">None</span></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>illinois_counties[<span class="st">"longitude"</span>] <span class="op">=</span> geocoded_results.<span class="bu">apply</span>(</span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> x: x[<span class="st">"longitude"</span>] <span class="cf">if</span> <span class="bu">isinstance</span>(x, <span class="bu">dict</span>) <span class="kw">and</span> <span class="st">"longitude"</span> <span class="kw">in</span> x <span class="cf">else</span> <span class="va">None</span></span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first few rows of the DataFrame with geocoded data:</span></span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>illinois_counties.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="31">
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:  <span class="co"># Handle errors during geocoding and print them:</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the geocoding function to each Illinois county:</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>geocoded_results <span class="op">=</span> illinois_counties.<span class="bu">apply</span>(geocode_county, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the geocoding results into separate columns for address, latitude, and longitude:</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>illinois_counties[<span class="st">"geocode_address"</span>] <span class="op">=</span> geocoded_results.<span class="bu">apply</span>(</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> x: x[<span class="st">"address"</span>] <span class="cf">if</span> <span class="bu">isinstance</span>(x, <span class="bu">dict</span>) <span class="kw">and</span> <span class="st">"address"</span> <span class="kw">in</span> x <span class="cf">else</span> <span class="va">None</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>illinois_counties[<span class="st">"latitude"</span>] <span class="op">=</span> geocoded_results.<span class="bu">apply</span>(</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> x: x[<span class="st">"latitude"</span>] <span class="cf">if</span> <span class="bu">isinstance</span>(x, <span class="bu">dict</span>) <span class="kw">and</span> <span class="st">"latitude"</span> <span class="kw">in</span> x <span class="cf">else</span> <span class="va">None</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>illinois_counties[<span class="st">"longitude"</span>] <span class="op">=</span> geocoded_results.<span class="bu">apply</span>(</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> x: x[<span class="st">"longitude"</span>] <span class="cf">if</span> <span class="bu">isinstance</span>(x, <span class="bu">dict</span>) <span class="kw">and</span> <span class="st">"longitude"</span> <span class="kw">in</span> x <span class="cf">else</span> <span class="va">None</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first few rows of the DataFrame with geocoded data:</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>illinois_counties.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
 
@@ -814,41 +813,41 @@ div.csl-indent {
 <td data-quarto-table-cell-role="th">595</td>
 <td>Adams</td>
 <td>Illinois</td>
-<td>Adams County, Illinois, United States</td>
-<td>39.978779</td>
-<td>-91.211006</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">596</td>
 <td>Alexander</td>
 <td>Illinois</td>
-<td>Alexander County, Illinois, United States</td>
-<td>37.180153</td>
-<td>-89.350283</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">597</td>
 <td>Bond</td>
 <td>Illinois</td>
-<td>Bond County, Illinois, United States</td>
-<td>38.863033</td>
-<td>-89.439142</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">598</td>
 <td>Boone</td>
 <td>Illinois</td>
-<td>Boone County, Illinois, United States</td>
-<td>42.321246</td>
-<td>-88.823551</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">599</td>
 <td>Brown</td>
 <td>Illinois</td>
-<td>Brown County, Illinois, United States</td>
-<td>39.949821</td>
-<td>-90.748566</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
 </tr>
 </tbody>
 </table>
@@ -856,7 +855,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<div id="cell-10" class="cell" data-execution_count="28">
+<div id="cell-10" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the geocoded results to a CSV file</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>illinois_counties.to_csv(</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"../../data/raw-data/geocoded_population_counties.csv"</span>, index<span class="op">=</span><span class="va">False</span></span>

@@ -1,3 +1,4 @@
 /.quarto/
 data/raw-data
 data/processed-data
+.claude/

@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python -c ':*)"
+      "Bash(python -c ':*)",
+      "Bash(python)",
+      "Bash(cp -r _site/technical-details/eda/main.html docs/technical-details/eda/main.html)",
+      "Bash(cp -r _site/technical-details/supervised-learning/main.html docs/technical-details/supervised-learning/main.html)",
+      "Bash(rm -rf docs/*)",
+      "Bash(cp -r _site/* docs/)"
     ]
   }
 }
