@@ -330,7 +330,7 @@ div.csl-indent {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>arrest_df <span class="op">=</span> pd.read_csv(<span class="st">"../../data/raw-data/illinois_arrest_explorer_data.csv"</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>arrest_df.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
 
@@ -450,7 +450,7 @@ div.csl-indent {
 <div id="cell-5" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>exoneration_df <span class="op">=</span> pd.read_csv(<span class="st">"../../data/raw-data/US_exoneration_data.csv"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>exoneration_df.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
 
@@ -600,7 +600,7 @@ div.csl-indent {
 <div class="cell-output cell-output-stdout">
 <pre><code>Data saved to 'representation_by_county_raw.csv'</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
 
@@ -772,115 +772,28 @@ div.csl-indent {
 <span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>                <span class="st">"longitude"</span>: location.longitude,  <span class="co"># The longitude coordinate</span></span>
 <span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>            }</span>
 <span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:  <span class="co"># Print a message if no geocoding result is found:</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"Failed: No result for </span><span class="sc">{</span>row[<span class="st">'County'</span>]<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>row[<span class="st">'State'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">None</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:  <span class="co"># Handle errors during geocoding and print them:</span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Error geocoding </span><span class="sc">{</span>row[<span class="st">'County'</span>]<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>row[<span class="st">'State'</span>]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the geocoding function to each Illinois county:</span></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>geocoded_results <span class="op">=</span> illinois_counties.<span class="bu">apply</span>(geocode_county, axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the geocoding results into separate columns for address, latitude, and longitude:</span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>illinois_counties[<span class="st">"geocode_address"</span>] <span class="op">=</span> geocoded_results.<span class="bu">apply</span>(</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> x: x[<span class="st">"address"</span>] <span class="cf">if</span> <span class="bu">isinstance</span>(x, <span class="bu">dict</span>) <span class="kw">and</span> <span class="st">"address"</span> <span class="kw">in</span> x <span class="cf">else</span> <span class="va">None</span></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>illinois_counties[<span class="st">"latitude"</span>] <span class="op">=</span> geocoded_results.<span class="bu">apply</span>(</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> x: x[<span class="st">"latitude"</span>] <span class="cf">if</span> <span class="bu">isinstance</span>(x, <span class="bu">dict</span>) <span class="kw">and</span> <span class="st">"latitude"</span> <span class="kw">in</span> x <span class="cf">else</span> <span class="va">None</span></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>illinois_counties[<span class="st">"longitude"</span>] <span class="op">=</span> geocoded_results.<span class="bu">apply</span>(</span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> x: x[<span class="st">"longitude"</span>] <span class="cf">if</span> <span class="bu">isinstance</span>(x, <span class="bu">dict</span>) <span class="kw">and</span> <span class="st">"longitude"</span> <span class="kw">in</span> x <span class="cf">else</span> <span class="va">None</span></span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first few rows of the DataFrame with geocoded data:</span></span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>illinois_counties.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Error geocoding De Witt, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=De+Witt%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Douglas, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Douglas%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding DuPage, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=DuPage%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Edgar, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Edgar%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Edwards, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Edwards%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Effingham, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Effingham%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Fayette, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Fayette%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Ford, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Ford%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Franklin, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Franklin%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Fulton, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Fulton%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Gallatin, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Gallatin%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Greene, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Greene%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Grundy, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Grundy%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Hamilton, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Hamilton%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Hancock, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Hancock%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Hardin, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Hardin%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Henderson, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Henderson%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Henry, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Henry%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Iroquois, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Iroquois%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Jackson, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Jackson%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Jasper, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Jasper%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Jefferson, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Jefferson%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Jersey, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Jersey%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Jo Daviess, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Jo+Daviess%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Johnson, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Johnson%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Kane, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Kane%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Kankakee, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Kankakee%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Kendall, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Kendall%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Knox, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Knox%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Lake, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Lake%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding La Salle, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=La+Salle%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Lawrence, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Lawrence%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Lee, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Lee%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Livingston, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Livingston%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Logan, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Logan%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding McDonough, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=McDonough%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding McHenry, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=McHenry%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding McLean, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=McLean%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Macon, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Macon%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Macoupin, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Macoupin%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Madison, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Madison%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Marion, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Marion%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Marshall, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Marshall%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Mason, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Mason%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Massac, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Massac%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Menard, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Menard%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Mercer, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Mercer%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Monroe, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Monroe%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Montgomery, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Montgomery%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Morgan, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Morgan%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Moultrie, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Moultrie%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Ogle, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Ogle%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Peoria, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Peoria%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Perry, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Perry%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Piatt, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Piatt%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Pike, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Pike%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Pope, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Pope%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Pulaski, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Pulaski%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Putnam, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Putnam%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Randolph, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Randolph%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Richland, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Richland%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Rock Island, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Rock+Island%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding St. Clair, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=St.+Clair%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Saline, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Saline%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Sangamon, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Sangamon%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Schuyler, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Schuyler%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Scott, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Scott%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Shelby, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Shelby%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Stark, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Stark%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Stephenson, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Stephenson%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Tazewell, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Tazewell%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Union, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Union%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Vermilion, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Vermilion%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Wabash, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Wabash%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Warren, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Warren%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Washington, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Washington%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Wayne, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Wayne%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding White, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=White%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Whiteside, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Whiteside%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Will, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Will%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Williamson, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Williamson%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Winnebago, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Winnebago%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))
-Error geocoding Woodford, Illinois: HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Max retries exceeded with url: /search?q=Woodford%2C+Illinois%2C+USA&amp;format=json&amp;limit=1 (Caused by ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)"))</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:  <span class="co"># Handle errors during geocoding and print them:</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the geocoding function to each Illinois county:</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>geocoded_results <span class="op">=</span> illinois_counties.<span class="bu">apply</span>(geocode_county, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the geocoding results into separate columns for address, latitude, and longitude:</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>illinois_counties[<span class="st">"geocode_address"</span>] <span class="op">=</span> geocoded_results.<span class="bu">apply</span>(</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> x: x[<span class="st">"address"</span>] <span class="cf">if</span> <span class="bu">isinstance</span>(x, <span class="bu">dict</span>) <span class="kw">and</span> <span class="st">"address"</span> <span class="kw">in</span> x <span class="cf">else</span> <span class="va">None</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>illinois_counties[<span class="st">"latitude"</span>] <span class="op">=</span> geocoded_results.<span class="bu">apply</span>(</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> x: x[<span class="st">"latitude"</span>] <span class="cf">if</span> <span class="bu">isinstance</span>(x, <span class="bu">dict</span>) <span class="kw">and</span> <span class="st">"latitude"</span> <span class="kw">in</span> x <span class="cf">else</span> <span class="va">None</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>illinois_counties[<span class="st">"longitude"</span>] <span class="op">=</span> geocoded_results.<span class="bu">apply</span>(</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> x: x[<span class="st">"longitude"</span>] <span class="cf">if</span> <span class="bu">isinstance</span>(x, <span class="bu">dict</span>) <span class="kw">and</span> <span class="st">"longitude"</span> <span class="kw">in</span> x <span class="cf">else</span> <span class="va">None</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first few rows of the DataFrame with geocoded data:</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>illinois_counties.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
 
@@ -900,41 +813,41 @@ Error geocoding Woodford, Illinois: HTTPSConnectionPool(host='nominatim.openstre
 <td data-quarto-table-cell-role="th">595</td>
 <td>Adams</td>
 <td>Illinois</td>
-<td>Adams County, Illinois, United States</td>
-<td>39.978779</td>
-<td>-91.211006</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">596</td>
 <td>Alexander</td>
 <td>Illinois</td>
-<td>Alexander County, Illinois, United States</td>
-<td>37.180153</td>
-<td>-89.350283</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">597</td>
 <td>Bond</td>
 <td>Illinois</td>
-<td>Bond County, Illinois, United States</td>
-<td>38.863033</td>
-<td>-89.439142</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">598</td>
 <td>Boone</td>
 <td>Illinois</td>
-<td>Boone County, Illinois, United States</td>
-<td>42.321246</td>
-<td>-88.823551</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">599</td>
 <td>Brown</td>
 <td>Illinois</td>
-<td>Brown County, Illinois, United States</td>
-<td>39.949821</td>
-<td>-90.748566</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
 </tr>
 </tbody>
 </table>
@@ -943,11 +856,11 @@ Error geocoding Woodford, Illinois: HTTPSConnectionPool(host='nominatim.openstre
 </div>
 </div>
 <div id="cell-10" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the geocoded results to a CSV file</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>illinois_counties.to_csv(</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"../../data/raw-data/geocoded_population_counties.csv"</span>, index<span class="op">=</span><span class="va">False</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Geocoded county data saved to 'geocoded_population_counties.csv'"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the geocoded results to a CSV file</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>illinois_counties.to_csv(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"../../data/raw-data/geocoded_population_counties.csv"</span>, index<span class="op">=</span><span class="va">False</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Geocoded county data saved to 'geocoded_population_counties.csv'"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Geocoded county data saved to 'geocoded_population_counties.csv'</code></pre>
 </div>
