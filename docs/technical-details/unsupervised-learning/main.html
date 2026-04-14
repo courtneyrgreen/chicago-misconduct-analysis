@@ -111,7 +111,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+
+  // After all Plotly charts on the page have been created, update every chart's
+
+  // hoverlabel font to Nunito Sans. This makes Plotly measure tooltip text in the
+
+  // same font the browser renders (Nunito Sans from the lux theme), so the tooltip
+
+  // box is sized correctly and text does not overflow in Chrome.
+
+  window.addEventListener("load", function () {
+
+    var plots = document.querySelectorAll(".js-plotly-plot");
+
+    plots.forEach(function (plot) {
+
+      try {
+
+        Plotly.relayout(plot, { "hoverlabel.font.family": "Nunito Sans, sans-serif" });
+
+      } catch (e) {}
+
+    });
+
+  });
+
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>

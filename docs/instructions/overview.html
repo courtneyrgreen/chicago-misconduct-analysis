@@ -97,7 +97,33 @@ div.csl-indent {
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+
+  // After all Plotly charts on the page have been created, update every chart's
+
+  // hoverlabel font to Nunito Sans. This makes Plotly measure tooltip text in the
+
+  // same font the browser renders (Nunito Sans from the lux theme), so the tooltip
+
+  // box is sized correctly and text does not overflow in Chrome.
+
+  window.addEventListener("load", function () {
+
+    var plots = document.querySelectorAll(".js-plotly-plot");
+
+    plots.forEach(function (plot) {
+
+      try {
+
+        Plotly.relayout(plot, { "hoverlabel.font.family": "Nunito Sans, sans-serif" });
+
+      } catch (e) {}
+
+    });
+
+  });
+
+</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
